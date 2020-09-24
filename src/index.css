@@ -1,0 +1,66 @@
+* {
+  border-color: red;
+  border-width: 1px;
+  border-style: solid;
+}
+
+body {
+  margin-left: 5%;
+  margin-right: 5%;
+  text-align: center;
+  display: flex;
+  flex-flow: column;
+}
+
+main {
+  flex: 1;
+}
+
+/*main div {
+  margin-bottom: 5px;
+}*/
+
+#menu {
+  display: flex;
+  flex-flow: row;
+}
+
+#menu button {
+  padding: 0;
+  flex: 1;
+}
+
+#menu select {
+  flex: 1;
+}
+
+.bookmark-item {
+  display: flex;
+  flex-flow: row;
+}
+.bookmark-item div {
+  flex: 1;
+}
+
+.bookmark-expanded {
+  display: flex;
+  flex-flow: column;
+}
+
+.bookmark-expanded .title {
+  flex: 1;
+}
+
+.bookmark-expanded .body {
+  flex: 4;
+}
+
+form #new-bookmark-top {
+  display: flex;
+  flex-flow: column;
+}
+
+form #new-bookmark-body {
+  display: flex;
+  flex-flow: column;
+}

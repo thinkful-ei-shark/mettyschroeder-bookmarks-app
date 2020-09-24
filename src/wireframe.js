@@ -100,11 +100,3 @@ const generateNewBookmarkView = function() {
           </div>
         </form>`;
 };
-
-
-
-const main = function () {
-
-};
-
-$(main);
