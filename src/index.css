@@ -46,6 +46,14 @@ main {
   display: flex;
   flex-flow: column;
 }
+.star-rating {
+  display: flex;
+  flex-flow: row;
+}
+
+.star-rating .star{
+  flex: 1;
+}
 
 .bookmark-expanded .title {
   flex: 1;

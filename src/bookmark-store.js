@@ -6,7 +6,7 @@ const store = { bookmarks: [
                     title: 'Title 1',
                     rating: 3,
                     url: 'http://www.title1.com',
-                    description: 'lorem ipsum dolor sit',
+                    desc: 'lorem ipsum dolor sit',
                     expanded: false
                   },
                   {
@@ -14,7 +14,7 @@ const store = { bookmarks: [
                     title: 'Title 2',
                     rating: 5,
                     url: 'http://www.title2.com',
-                    description: 'dolorum tempore deserunt',
+                    desc: 'dolorum tempore deserunt',
                     expanded: false
                   } 
                 ],
@@ -30,14 +30,14 @@ const isAdding = function() {
   return store.adding;
 };
 
-const addBookmark = function (id, title, rating, url, description, expanded) {
+const addBookmark = function (title, rating, url, description) {
   let bookmark = {
     id: id,
     title: title,
     rating: rating,
     url: url,
-    description: description,
-    expanded: expanded
+    desc: description,
+    expanded: false
   }
 
   store.bookmarks.push(bookmark);
@@ -53,6 +53,22 @@ const getBookmarks = function () {
   console.log(filteredBookmarks);
   return filteredBookmarks;
 };
+
+const updateRating = function (id, rating) {
+  for(let i = 0; i < store.bookmarks.length; i++){
+    if(store.bookmarks[i].id === id){
+      store.bookmarks[i].rating = rating;
+    }
+  }
+};
+
+const toggleExpanded = function (id) {
+  for(let i = 0; i < store.bookmarks.length; i++){
+    if(store.bookmarks[i].id === id){
+      store.bookmarks[i].expanded = !store.bookmarks[i].expanded;
+    }
+  }
+}
 
 /*const store = {
   bookmarks: [
@@ -83,5 +99,7 @@ export default {
   toggleAdding,
   isAdding,
   addBookmark,
-  getBookmarks
+  getBookmarks,
+  updateRating,
+  toggleExpanded
 };
