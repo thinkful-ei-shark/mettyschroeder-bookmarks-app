@@ -238,11 +238,11 @@ const handleCancelNewClicked = function() {
 };
 
 const handleExpandClicked = function() {
-  $('main').on('click', '.bookmark-item', function(e) {
+  /*$('main').on('click', '.bookmark-item', function(e) {
     let id = $(e.currentTarget).attr('id');
     store.toggleExpanded(id);
     render();
-  });
+  });*/
 }
 
 let bindEventListeners = function() {

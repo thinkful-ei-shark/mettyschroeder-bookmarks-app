@@ -52,7 +52,7 @@ const getBookmarks = function () {
   console.log('the filtered bookmarks are');
   console.log(filteredBookmarks);
   return filteredBookmarks;
-};
+}; 
 
 const updateRating = function (id, rating) {
   for(let i = 0; i < store.bookmarks.length; i++){
