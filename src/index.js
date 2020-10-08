@@ -2,8 +2,9 @@
 import $ from 'jquery';
 
 import './index.css';
-
+import api from './bookmark-api';
 import app from './bookmark-app';
+import store from './bookmark-store';
 
 
 
@@ -11,7 +12,14 @@ import app from './bookmark-app';
 const main = function () {
   app.render();
   app.bindEventListeners();
-  app.render();
+  api.getBookmarks().then( bookmarks => {
+    bookmarks.forEach(bookmark => {
+      store.addBookmark(bookmark);
+      console.log(`this individual bookmark is ${bookmark}`);
+    })
+    app.render();
+  })
+
 };
 
 $(main);

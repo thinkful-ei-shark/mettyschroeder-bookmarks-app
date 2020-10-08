@@ -1,9 +1,10 @@
 'use strict';
-const BASE_URL = 'https://thinkful-list-api.herokuapp.com/metty/bookmarks';
+const BASE_URL = 'https://thinkful-list-api.herokuapp.com/test2/bookmarks';
 
 
 const bookmarksApiFetch = function (...args) {
   let error;
+  console.log('bookmarksApiFetch running');
   return fetch(...args)
     .then(res => {
       if (!res.ok) {
@@ -27,6 +28,7 @@ const bookmarksApiFetch = function (...args) {
   }
 
 const getBookmarks = function (data) {
+  console.log('running getBookmarks');
   let bookmarkRequest = {
     headers: {
       'Content-Type': 'application/json'
@@ -35,22 +37,24 @@ const getBookmarks = function (data) {
   }
   
   let bookmarkResponse = bookmarksApiFetch(BASE_URL, bookmarkRequest);
+
+  console.log(`bookmarkResponse is ${bookmarkResponse}`);
   return bookmarkResponse;
 }
 
-const addBookmark = function (b) {
+const addBookmark = function (requestBody) {
   let bookmarkRequest = {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
-    body: b
+    body: requestBody
   };
   let bookmarkResponse = bookmarksApiFetch(BASE_URL, bookmarkRequest)
   return bookmarkResponse;
 }
 
-const editBookmark = function (id, data) {
+/*const editBookmark = function (id, data) {
   let bookmarkRequest = {
     method: 'PATCH',
     headers: {
@@ -61,7 +65,7 @@ const editBookmark = function (id, data) {
 
   let bookmarkResponse = bookmarksApiFetch(BASE_URL, bookmarkRequest);
   return bookmarkResponse;
-}
+}*/
 
 const deleteBookmark = function (id) {
   let bookmarkRequest = {
@@ -71,14 +75,14 @@ const deleteBookmark = function (id) {
     }
   };
 
-  let bookmarkResponse = bookmarksApiFetch(BASE_URL, bookmarkRequest);
+  let bookmarkResponse = bookmarksApiFetch(`${BASE_URL}/${id}`, bookmarkRequest);
   return bookmarkResponse;
 }
 
 export default {
   getBookmarks,
   addBookmark,
-  editBookmark,
+  //editBookmark,
   deleteBookmark
 }
 /*const createItem = function (name) {

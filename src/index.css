@@ -38,8 +38,12 @@ main {
   display: flex;
   flex-flow: row;
 }
-.bookmark-item div {
+.bookmark-item .title, .star-rating {
+  flex: 2;
+}
+.bookmark-item .expand-btn {
   flex: 1;
+  margin: 10px;
 }
 
 .bookmark-expanded {
@@ -69,6 +73,11 @@ form #new-bookmark-top {
 }
 
 form #new-bookmark-body {
+  display: flex;
+  flex-flow: column;
+}
+
+#new-bookmark-body .description-area {
   display: flex;
   flex-flow: column;
 }

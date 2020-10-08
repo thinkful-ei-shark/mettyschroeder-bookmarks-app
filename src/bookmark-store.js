@@ -1,7 +1,7 @@
 'use strict';
 
 const store = { bookmarks: [
-                  {
+                  /*{
                     id: 'x56w',
                     title: 'Title 1',
                     rating: 3,
@@ -16,12 +16,25 @@ const store = { bookmarks: [
                     url: 'http://www.title2.com',
                     desc: 'dolorum tempore deserunt',
                     expanded: false
-                  } 
+                  } */
                 ],
                 adding: false,
-                error: null,
-                filter: 5
+                error: [],
+                filter: 1
               };
+
+const setFilter = function (filter) {
+  store.filter = filter;
+}
+
+const addError = function (er) {
+  console.log(`adding error: [ ${er} ] to the store!`)
+  store.error.push(er);
+}
+
+const getErrors = function () {
+  return store.error
+}
 
 const toggleAdding = function () {
   store.adding = !store.adding;
@@ -30,27 +43,23 @@ const isAdding = function() {
   return store.adding;
 };
 
-const addBookmark = function (title, rating, url, description) {
-  let bookmark = {
+const addBookmark = function (bookmarkObj) {                //title, rating, url, description) {
+  /*let bookmark = {
     id: id,
     title: title,
     rating: rating,
     url: url,
     desc: description,
     expanded: false
-  }
+  }*/
 
-  store.bookmarks.push(bookmark);
+  store.bookmarks.push(bookmarkObj);
 };
 
 const getBookmarks = function () {
-  console.log('the bookmarks are');
-  console.log(store.bookmarks);
   let filteredBookmarks = store.bookmarks.filter(function (bookmark) {
-    return bookmark.rating <= store.filter;
+    return bookmark.rating >= store.filter;
   });
-  console.log('the filtered bookmarks are');
-  console.log(filteredBookmarks);
   return filteredBookmarks;
 }; 
 
@@ -68,6 +77,12 @@ const toggleExpanded = function (id) {
       store.bookmarks[i].expanded = !store.bookmarks[i].expanded;
     }
   }
+};
+
+const deleteBookmark = function (id) {
+  store.bookmarks = store.bookmarks.filter(bookmark => {
+    return bookmark.id !== id
+  })
 }
 
 /*const store = {
@@ -101,5 +116,9 @@ export default {
   addBookmark,
   getBookmarks,
   updateRating,
-  toggleExpanded
+  toggleExpanded,
+  addError,
+  getErrors,
+  deleteBookmark,
+  setFilter
 };
