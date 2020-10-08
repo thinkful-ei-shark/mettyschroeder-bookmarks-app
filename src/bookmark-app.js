@@ -14,16 +14,21 @@ const generateInitialView = function (bookmarks) {
 
 const generateInitialMenu = function () {
   return `<div id='menu'>
-            <button type='button' class='btn' id='new-bookmark-btn'><label for="">new</label></button>
-            <label for="filter-select">Filter Options</label>
-            <select name="filter-select" id="filter-select">
-              <option value="0">select a minimum rating</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-            </select>
+            <div class='menu-left'>
+              <button type='button' class='btn' id='new-bookmark-btn'><label for="">new</label></button>
+              </div>
+            <div class='menu-right'>
+              <label for="filter-select">Filter Options</label>
+              <select name="filter-select" id="filter-select">
+                <option value="0">select a minimum rating</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+            </div>
+            
           </div>`;
 }
 
@@ -40,7 +45,7 @@ const generateBookmarkList = function (bookmarks) {
   list = bookmarks.map(function (bm) {
     let ratings = generateRating(bm.rating);
     let template = `<div class='bookmark-item' id=${bm.id}>
-                      <div class='expand-btn'>Expand!</div>
+                      <div class='expand-btn'><img src="/src/images/expand.png" alt="expand"></div>
                       <div class='title'><h2>${bm.title}</h2></div>
                       <div class='star-rating'>
                         ${ratings}
@@ -49,7 +54,7 @@ const generateBookmarkList = function (bookmarks) {
     if (bm.expanded) {
       template = `<div class='bookmark-item bookmark-expanded' id='${bm.id}'>
                     <div class='expand-btn-options'>              
-                      <div class='expand-btn'>Collapse</div>
+                      <div class='expand-btn collapse'>Collapse</div>
                     </div>
                     
                     <div class='title'>
@@ -59,8 +64,12 @@ const generateBookmarkList = function (bookmarks) {
 
                     <div class='expanded-body'>
                       <div class='body-top'>
-                        <label for="description-edit">Edit Description</label>
-                        <textarea name="description-edit" id="description-edit" cols="30" rows="10">${bm.desc}</textarea>
+ 
+                        <div class="description-edit-area">
+                          <label for="description-edit">Edit Description</label>
+                          <textarea name="description-edit" id="description-edit" cols="30" rows="10">${bm.desc}</textarea>
+                        </div>
+                        
                         <div class='star-rating'>
                           ${ratings}
                         </div>
@@ -131,14 +140,14 @@ const generateNewBookmarkView = function () {
                     <div id='new-bookmark-top'>
                     <div class='title-walkthrough'>
                       <label for="bookmark-url-input">Url:</label>
-                      <input type="text" name="bookmark-url-input" id='bookmark-url-input' value='https://www.google.com/'>
+                      <input type="text" name="bookmark-url-input" id='bookmark-url-input'>
                     </div>
                       </div>
 
                     <div id='new-bookmark-body'>
                       <div class='link-walkthrough'>
                         <label for="bookmark-title-input">Title: </label>
-                        <input type="text" name="bookmark-title-input" id='bookmark-title-input' value='Sample Title'>
+                        <input type="text" name="bookmark-title-input" id='bookmark-title-input'>
                       </div>
                       <div class='star-rating'>
                         <div class='star new-star full-star one-star'><img src="/src/images/star-full.png" alt="full star"></div>
@@ -149,7 +158,7 @@ const generateNewBookmarkView = function () {
                       </div>
                       <div class='description-area'>
                         <label for="bookmark-desc-textarea">Enter a description</label>
-                        <textarea name="bookmark-desc-textarea" id="bookmark-desc-textarea" cols="30" rows="10">temp desc</textarea>
+                        <textarea name="bookmark-desc-textarea" id="bookmark-desc-textarea" cols="30" rows="10" placeholder='enter description'></textarea>
                       </div>
                     </div>
 
@@ -308,12 +317,12 @@ const handleSubmitNewClicked = function () {
 }
 
 const putUrlEr = function () {
-  let template = `<div class='er' id='invalid-url'>Your url must include 'https'</div>`;
+  let template = `<div class='er' id='invalid-url'>Please use a valid url ex: https://google.com</div>`;
   $('.title-walkthrough').append(template);
 }
 
 const putTitleEr = function () {
-  let template = `<div class='er' id='invalid-title'>You must add a title!</div>`;
+  let template = `<div class='er' id='invalid-title'>Please add a title</div>`;
   $('.link-walkthrough').append(template);
 }
 
