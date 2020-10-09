@@ -28,7 +28,6 @@ const setFilter = function (filter) {
 }
 
 const addError = function (er) {
-  console.log(`adding error: [ ${er} ] to the store!`)
   store.error.push(er);
 }
 

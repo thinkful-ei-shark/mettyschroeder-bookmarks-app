@@ -4,7 +4,6 @@ const BASE_URL = 'https://thinkful-list-api.herokuapp.com/test2/bookmarks';
 
 const bookmarksApiFetch = function (...args) {
   let error;
-  console.log('bookmarksApiFetch running');
   return fetch(...args)
     .then(res => {
       if (!res.ok) {
@@ -28,7 +27,6 @@ const bookmarksApiFetch = function (...args) {
   }
 
 const getBookmarks = function (data) {
-  console.log('running getBookmarks');
   let bookmarkRequest = {
     headers: {
       'Content-Type': 'application/json'
@@ -37,8 +35,6 @@ const getBookmarks = function (data) {
   }
   
   let bookmarkResponse = bookmarksApiFetch(BASE_URL, bookmarkRequest);
-
-  console.log(`bookmarkResponse is ${bookmarkResponse}`);
   return bookmarkResponse;
 }
 

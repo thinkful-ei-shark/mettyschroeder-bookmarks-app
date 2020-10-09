@@ -237,12 +237,6 @@ const handleSetRatingClicked = function () {
 
     let parent = $(e.currentTarget).parent();
     directUpdateRating(parent, starValue);
-    /*console.log(e.currentTarget);
-    let ratingString = $(e.currentTarget).attr('value');
-    console.log(`ratingString is ${ratingString}`);
-    let rating = parseInt(ratingString, 10);
-    console.log(`rating is ${rating} it is a ${typeof(rating)}`);
-    */
   });
 }
 
@@ -270,7 +264,6 @@ function isValidUrl(string) {
 }
 
 const validateUrl = function (url) {
-  console.log('testing url validity')
   if (url === undefined || url === '' || !isValidUrl(url)) {
     store.addError('invalidUrl')
     return false
@@ -282,7 +275,6 @@ const validateUrl = function (url) {
 const handleSubmitNewClicked = function () {
   $('main').on('submit', 'form', function (e) {
     e.preventDefault();
-    console.log("SUBMIT IS RUNNING");
     let title = $('#bookmark-title-input').val();
     let url = $('#bookmark-url-input').val();
     let desc = $('#bookmark-desc-textarea').val();
@@ -298,8 +290,6 @@ const handleSubmitNewClicked = function () {
     toRun = validateUrl(url) && toRun
     if (toRun) {
       api.addBookmark(JSON.stringify(requestBody)).then(res => {
-        console.log('response of addBookmark is: ');
-        console.log(res);
 
         store.addBookmark(res)
         store.toggleAdding();
@@ -329,12 +319,9 @@ const putTitleEr = function () {
 const displayErs = function () {
   const ers = store.getErrors()
   if (ers.includes('invalidUrl') && !($('#invalid-title').length)) {
-    console.log('display invalidUrl')
     putUrlEr();
-    //console.log($('.error-message').val())
   }
   if (ers.includes('invalidTitle') && !($('#invalid-title').length)) {
-    console.log('display invalidTitle')
     putTitleEr();
   }
 }
@@ -358,9 +345,7 @@ const handleExpandClicked = function () {
 const handleDeleteClicked = function () {
   $('main').on('click', '#btn-bookmark-delete', function (e) {
     let id = $(e.currentTarget).closest('.bookmark-item').attr('id');
-    console.log(`id is ${id}`)
     api.deleteBookmark(id).then(res => {
-        console.log('now deleting from store')
         store.deleteBookmark(id);
         render();
     }).catch(er => {

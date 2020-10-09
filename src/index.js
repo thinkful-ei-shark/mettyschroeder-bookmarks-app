@@ -15,7 +15,6 @@ const main = function () {
   api.getBookmarks().then( bookmarks => {
     bookmarks.forEach(bookmark => {
       store.addBookmark(bookmark);
-      console.log(`this individual bookmark is ${bookmark}`);
     })
     app.render();
   })
