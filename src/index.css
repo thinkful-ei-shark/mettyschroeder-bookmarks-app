@@ -148,6 +148,10 @@ form #new-bookmark-body {
   fill: currentColor;
 }
 
+.er {
+  color: red;
+}
+
 @media only screen and (min-width: 600px) {
 
   body {

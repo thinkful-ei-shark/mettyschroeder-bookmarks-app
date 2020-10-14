@@ -134,20 +134,24 @@ const generateRating = function (rating) {
             </div>
 */
 
-const generateNewBookmarkView = function () {
+const generateNewBookmarkView = function (ers) {
+
+
   let template = `<form action="submit">
                     <h2>Add New Bookmark</h2>
                     <div id='new-bookmark-top'>
-                    <div class='title-walkthrough'>
+                    <div class='url-walkthrough'>
                       <label for="bookmark-url-input">Url:</label>
                       <input type="text" name="bookmark-url-input" id='bookmark-url-input'>
+                      <div class='er' id='invalid-url'></div>
                     </div>
                       </div>
 
                     <div id='new-bookmark-body'>
-                      <div class='link-walkthrough'>
+                      <div class='title-walkthrough'>
                         <label for="bookmark-title-input">Title: </label>
                         <input type="text" name="bookmark-title-input" id='bookmark-title-input'>
+                        <div class='er' id='invalid-title'></div>
                       </div>
                       <div class='star-rating'>
                         <div class='star new-star full-star one-star'><img src="/src/images/star-full.png" alt="full star"></div>
@@ -271,7 +275,6 @@ const validateUrl = function (url) {
   return true
 }
 
-
 const handleSubmitNewClicked = function () {
   $('main').on('submit', 'form', function (e) {
     e.preventDefault();
@@ -286,6 +289,8 @@ const handleSubmitNewClicked = function () {
       desc: desc,
       rating: rating
     }
+    store.clearErrors();
+
     let toRun = validateTitle(title)
     toRun = validateUrl(url) && toRun
     if (toRun) {
@@ -301,29 +306,29 @@ const handleSubmitNewClicked = function () {
       //store.addBookmark(title, rating, url, desc);
     }
     else {
-      displayErs();
+      console.log("didn't do fetch, store errors are: ", store.getErrors())
+      render();
     }
   });
 }
 
-const putUrlEr = function () {
-  let template = `<div class='er' id='invalid-url'>Please use a valid url ex: https://google.com</div>`;
-  $('.title-walkthrough').append(template);
-}
 
-const putTitleEr = function () {
-  let template = `<div class='er' id='invalid-title'>Please add a title</div>`;
-  $('.link-walkthrough').append(template);
-}
 
 const displayErs = function () {
   const ers = store.getErrors()
-  if (ers.includes('invalidUrl') && !($('#invalid-title').length)) {
-    putUrlEr();
+  if(!ers.includes('invalidUrl')){
+    $('#invalid-url').html('');
   }
-  if (ers.includes('invalidTitle') && !($('#invalid-title').length)) {
-    putTitleEr();
+  else if (ers.includes('invalidUrl')) {
+    $('#invalid-url').html('Please enter a valid url EX: https://google.com')
   }
+  if(!ers.includes('invalidTitle')){
+    $('#invalid-title').html('');
+  }
+  else if (ers.includes('invalidTitle')) {
+   $('#invalid-title').html('Please enter a title')
+  }
+  store.clearErrors();
 }
 
 const handleCancelNewClicked = function () {
@@ -365,14 +370,16 @@ let bindEventListeners = function () {
 };
 
 let render = function () {
-  let template = '';
-  if (store.isAdding()) {
-    template = generateNewBookmarkView();
+  if(store.getErrors().length > 0) {
+    console.log('displaying errors');
+    displayErs();
+  }
+  else if (store.isAdding()) {
+    $('main').html(generateNewBookmarkView(store.getErrors()));
   }
   else {
-    template = generateInitialView(store.getBookmarks());;
+    $('main').html(generateInitialView(store.getBookmarks()));
   }
-  $('main').html(template);
 }
 
 

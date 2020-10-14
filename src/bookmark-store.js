@@ -28,11 +28,23 @@ const setFilter = function (filter) {
 }
 
 const addError = function (er) {
-  store.error.push(er);
+  if(!store.error.includes(er)){
+    store.error.push(er);
+  }
 }
 
 const getErrors = function () {
-  return store.error
+  return store.error;
+}
+
+const clearErrors = function() {
+  store.error = [];
+}
+
+const removeError = function (err) {
+  store.error = store.error.filter(er => {
+    return er != err
+  })
 }
 
 const toggleAdding = function () {
@@ -119,5 +131,7 @@ export default {
   addError,
   getErrors,
   deleteBookmark,
-  setFilter
+  setFilter,
+  clearErrors,
+  removeError
 };
