@@ -2,6 +2,9 @@
 import $ from 'jquery';
 import api from './bookmark-api';
 import store from './bookmark-store';
+import expandIcon from './images/expand.png'
+import fullStar from './images/star-full.png'
+import emptyStar from './images/star-empty.png'
 
 
 const generateInitialView = function (bookmarks) {
@@ -45,7 +48,7 @@ const generateBookmarkList = function (bookmarks) {
   list = bookmarks.map(function (bm) {
     let ratings = generateRating(bm.rating);
     let template = `<div class='bookmark-item' id=${bm.id}>
-                      <div class='expand-btn'><img src="/src/images/expand.png" alt="expand"></div>
+                      <div class='expand-btn'><img src="${expandIcon}" alt="expand"></div>
                       <div class='title'><h2>${bm.title}</h2></div>
                       <div class='star-rating'>
                         ${ratings}
@@ -116,10 +119,10 @@ const generateRating = function (rating) {
     let className = c[`${i}`];
 
     if (i <= rating) {
-      ratings += `<div class='star full-star ${className}'><img src="/src/images/star-full.png" alt="full star"></div>`;
+      ratings += `<div class='star full-star ${className}'><img src="${fullStar}" alt="full star"></div>`;
     }
     else {
-      ratings += `<div class='star empty-star ${className}'><img src="/src/images/star-empty.png" alt="empty star"></div>`;
+      ratings += `<div class='star empty-star ${className}'><img src="${emptyStar}" alt="empty star"></div>`;
     }
   }
   return ratings;
@@ -154,11 +157,11 @@ const generateNewBookmarkView = function (ers) {
                         <div class='er' id='invalid-title'></div>
                       </div>
                       <div class='star-rating'>
-                        <div class='star new-star full-star one-star'><img src="/src/images/star-full.png" alt="full star"></div>
-                        <div class='star new-star empty-star two-star'><img src="/src/images/star-empty.png" alt="empty star"></div>
-                        <div class='star new-star empty-star three-star'><img src="/src/images/star-empty.png" alt="empty star"></div>
-                        <div class='star new-star empty-star four-star'><img src="/src/images/star-empty.png" alt="empty star"></div>
-                        <div class='star new-star empty-star five-star'><img src="/src/images/star-empty.png" alt="empty star"></div>
+                        <div class='star new-star full-star one-star'><img src="${fullStar}" alt="full star"></div>
+                        <div class='star new-star empty-star two-star'><img src="${emptyStar}" alt="empty star"></div>
+                        <div class='star new-star empty-star three-star'><img src="${emptyStar}" alt="empty star"></div>
+                        <div class='star new-star empty-star four-star'><img src="${emptyStar}" alt="empty star"></div>
+                        <div class='star new-star empty-star five-star'><img src="${emptyStar}" alt="empty star"></div>
                       </div>
                       <div class='description-area'>
                         <label for="bookmark-desc-textarea">Enter a description</label>
@@ -174,13 +177,6 @@ const generateNewBookmarkView = function (ers) {
                   </form>`;
   return template;
 };
-/*
-<button type='button' class='star empty-star' val='1'><img src="/src/images/star-empty.png" alt="empty star"></button>
-<button type='button' class='star empty-star' val='2'><img src="/src/images/star-empty.png" alt="empty star"></button>
-<button type='button' class='star empty-star' val='3'><img src="/src/images/star-empty.png" alt="empty star"></button>
-<button type='button' class='star empty-star' val='4'><img src="/src/images/star-empty.png" alt="empty star"></button>
-<button type='button' class='star empty-star' val='5'><img src="/src/images/star-empty.png" alt="empty star"></button>
-*/
 
 const getStarValue = function (star) {
   if (star.hasClass('one-star')) {
@@ -221,10 +217,10 @@ const generateNewRating = function (rating) {
     let className = c[`${i}`];
 
     if (i <= rating) {
-      ratings += `<div class='star new-star full-star ${className}'><img src="/src/images/star-full.png" alt="full star"></div>`;
+      ratings += `<div class='star new-star full-star ${className}'><img src="${fullStar}" alt="full star"></div>`;
     }
     else {
-      ratings += `<div class='star new-star empty-star ${className}'><img src="/src/images/star-empty.png" alt="empty star"></div>`;
+      ratings += `<div class='star new-star empty-star ${className}'><img src="${emptyStar}" alt="empty star"></div>`;
     }
   }
   return ratings;
